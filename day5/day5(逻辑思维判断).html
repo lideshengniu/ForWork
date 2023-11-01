@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    工龄:<input type="text" value="1" id="workYear" />
+    <br />
+    薪资:<input type="text" value="140000" id="workMoney" />
+    <br />
+    <button id="submit">计算年终奖</button>
+    <br />
+    你的年终奖是：<span id="valBox"></span>
+  </body>
+  <script>
+    let workYear = document.getElementById('workYear');
+    let workMoney = document.getElementById('workMoney');
+    let submit = document.getElementById('submit');
+    let valBox = document.getElementById('valBox');
+    4;
+    submit.onclick = function () {
+      let year = Number(workYear.value);
+      let money = Number(workMoney.value);
+      if (isNaN(year) || isNaN(money)) {
+        alert('输入的内容是非法格式');
+        return;
+      }
+      let result = null;
+      if (year < 1) {
+        result = money >= 8000 ? money * 1.2 : money;
+        // if (money <= 8000) {
+        //   return money;
+        // } else {
+        //   return 1.2 * money;
+        // }
+      } else if (year >= 1 && year < 2) {
+        result = money >= 10000 ? money * 1.7 : money * 1.5;
+        // if (m <= 10000) {
+        //   return 1.5 * money;
+        // } else {
+        //   return 1.7 * money;
+        // }
+      } else {
+        result = money > 12000 ? 3.2 * money : 3 * money;
+        // if (money <= 12000) {
+        //   return 3 * money;
+        // } else {
+        //   return 3.2 * money;
+        // }
+      }
+      valBox.innerHTML = result;
+    };
+  </script>
+</html>
+<!-- 4.某个公司要给员工发年终奖，为了奖励老员工，所以
+
+工作时间越长，发的越多，规则如下:
+
+工作满0年，发月薪的1倍月薪年终奖，如果月薪大于
+
+8000，那么就是发1.2倍
+
+工作满1年，发月薪的1.5倍月薪年终奖，如果月薪大于
+
+10000 ，那么就是发1.7倍
+
+工作满2年甚至更多，发月薪的3 倍月薪年终奖，如果月薪
+
+大于12000 ，那么就是发3.2倍
+
+编写JS程序，当用户输入自己的工作年限和薪资后，计算
+
+并且输出应得的年终奖一
+function(m,y){
+    if(y<1){
+        if(m<=8000){
+            return m
+        }
+        else{
+            return 1.2*m
+        }
+    }
+    else if(y=1){
+        if(m<=10000){
+            return 1.5m
+        }else{
+            return 1.7m
+        }
+    }
+    else{
+        if(m<=12000){
+            return 3m
+        }else{
+            return 3.2m
+        }
+    }
+} -->

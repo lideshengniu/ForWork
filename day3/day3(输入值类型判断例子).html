@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #numInp,
+      #submit {
+        box-sizing: border-box;
+        padding: 0 15px;
+        height: 35px;
+        border: 1px solid red;
+        /* width: 100px; */
+      }
+    </style>
+  </head>
+
+  <body>
+    <input type="text" id="numInp" />
+    <button id="submit">点击计算</button>
+    <span id="submit">xx </span>
+  </body>
+  <script>
+    let numInp = document.getElementById('numInp');
+    let submit = document.getElementById('submit');
+    submit.onclick = function () {
+      let n = numInp.value;
+      //   console.log(typeof n);
+      // 文本框中获取的信息是字符串格式的"string"
+      //对了验证一个数是不是NaN 不能用 n ===NaN 因为任何NaN 都不等于其他NaN
+      //用isNaN验证就行
+      if (!isNaN(n)) {
+        if (n > 0) {
+          console.log('正数');
+        } else if (n < 0) {
+          console.log('负数');
+        } else {
+          console.log('零');
+        }
+        //有效数字
+      } else {
+        console.log('当前输入的信息为非有效数字！');
+      }
+    };
+  </script>
+</html>

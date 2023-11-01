@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        height: 100%;
+        overflow: hidden;
+      }
+
+      button {
+        padding: 40px;
+        line-height: 40px;
+      }
+    </style>
+  </head>
+
+  <body style="background-color: #fff">
+    <button id="changeBtn">点我切换颜色</button>
+    <script>
+      let body = document.body;
+      let i = 0;
+      let changeBtn = document.getElementById('changeBtn');
+      let ary = [
+        'white',
+        'pink',
+        'lightblue',
+        'lightgreen',
+        'rgb(194,109,109)',
+        'orange',
+        '#999',
+      ];
+      changeBtn.onclick = function () {
+        //   body.style.backgroundColor = ary[i]
+        i++;
+        i >= ary.length ? (i = 0) : null;
+        body.style.backgroundColor = ary[i];
+      };
+      //   changeBtn.onclick = function () {
+      //     // 获取当前的背景颜色，元素.style.xxx 只能获取行内样式（颜色在样式中使用16进制方式，js中获取到的是rgb的值）
+      //     // 如果用的string 比如white 那 js获取到的也是white
+      //     let bg = body.style.backgroundColor;
+      //     switch (bg) {
+      //       case 'white':
+      //         body.style.backgroundColor = 'red';
+      //         break;
+      //       case 'red':
+      //         body.style.backgroundColor = 'green';
+      //         break;
+      //       case 'green':
+      //         body.style.backgroundColor = 'blue';
+      //       default:
+      //         body.style.backgroundColor = 'white';
+      //     }
+    </script>
+  </body>
+</html>

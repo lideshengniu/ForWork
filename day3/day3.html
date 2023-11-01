@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .box {
+        box-sizing: border-box;
+        padding: 0;
+        width: 200px;
+        height: 40px;
+        margin: 20px auto;
+        line-height: 40px;
+        text-align: center;
+        position: relative;
+        border: 1px solid lightpink;
+        z-index: 99;
+      }
+      .box .detail {
+        z-index: 1;
+        display: none;
+        position: absolute;
+        right: -1px;
+        top: 39px;
+        box-sizing: border-box;
+        width: 500px;
+        height: 100px;
+        line-height: 100px;
+        text-align: center;
+        border: 1px solid lightblue;
+      }
+      .box:hover {
+        border-bottom-color: white;
+      }
+      .box:hover .detail {
+        display: block;
+      }
+      /* 如果是点击实现显示，不需要js也可以，可以基于target 实现手风琴效果 */
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <span>购物车</span>
+      <div class="detail">购物车相关</div>
+    </div>
+  </body>
+</html>

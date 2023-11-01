@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      ul {
+        list-style: none;
+      }
+      #newsBox {
+        box-sizing: border-box;
+        padding: 20px;
+        width: 300px;
+        border: 2px solid lightblue;
+      }
+      #newsBox li {
+        line-height: 35px;
+        /* background-color: /; */
+        border-bottom: 1px dashed lightblue;
+      }
+      #newsBox li:nth-last-child {
+        line-height: 35px;
+        /* background-color: /; */
+        border-bottom: none;
+      }
+
+      /*
+        even 是偶数行   odd 奇数行
+      */
+      /* 基于css实现
+            
+            #newsBox li:nth-child(even) {
+            }
+            #newsBox li:nth-child(odd) {
+            }
+            #newsBox li:hover {
+              background: lightblue;
+            } */
+    </style>
+  </head>
+  <body>
+    <ul id="newsBox">
+      <li>我是第1个LI</li>
+      <li>我是第2个LI</li>
+      <li>我是第3个LI</li>
+      <li>我是第4个LI</li>
+      <li>我是第5个LI</li>
+    </ul>
+  </body>
+  <script>
+    // [context].getElementsByTagName([tagname]):在指定的context范围之内，通过标签名获取一组元素（元素集合 HTMLCollection（n）） 注意他不叫数组而叫类数组，集合和数组很相似，也是以数字索引作为属性名，有length属性存储长度，但是不是数组，属性“类数组”
+    let newsBox = document.getElementById('newsBox');
+    let newsList = newsBox.getElementsByTagName('li');
+    for (let i = 0; i < newsList.length; i++) {
+      let curLi = newsList[i];
+      if (i % 2 === 0) {
+        curLi.style.background = '#FFF';
+      } else {
+        curLi.style.background = '#DDD';
+      }
+    }
+  </script>
+</html>

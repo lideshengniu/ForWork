@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button value="按钮1"></button>
+    <button value="按钮2"></button>
+    <button value="按钮3"></button>
+    <button value="按钮4"></button><button value="按钮5"></button>
+    <script>
+      var btnList = document.getElementsByTagName('button');
+      //所以小李现在能更清晰的明白了，给onclick定义的时候只是在栈中加了i个堆内存里面放了i个字符串，只有在执行click的时候才把字符串变成了真的代码切依次赋值 而这个时候for早就完了 i 肯定就已经走到底了 i的值也就是length
+      for (var i = 0; i < btnList.length; i++) {
+        btnList[i].onclick = function () {
+          alert(i);
+        };
+      }
+      /* 
+      function fn(n,m){
+        var res = null
+        res = n+m
+        return res
+      }
+      var res = fn(10,20)
+      
+      */
+      // 函数只创建不执行有意义吗？，没  只创建只是开辟了一个堆把函数体中的代码 用字符串存储在堆里  只有执行的时候函数中的代码才会从字符串转为代码然后执行=》形成一个全新的私有栈内存   因为重新开了一个栈所以外面想用函数里的是用不了的 只能return出去再用
+    </script>
+  </body>
+</html>

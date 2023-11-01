@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      ul {
+        list-style: none;
+      }
+      #box {
+        margin: 10px auto;
+        width: 500px;
+      }
+      #box li {
+        line-height: 35px;
+        border-bottom: 1px dashed #999;
+      }
+    </style>
+  </head>
+  <body>
+    <ul id="box">
+      <li>我是第1个LI哈哈哈</li>
+      <li>我是第2个LI哈哈哈</li>
+      <li>我是第3个LI哈哈哈</li>
+      <li>我是第4个LI哈哈哈</li>
+      <li>我是第5个LI哈哈哈</li>
+    </ul>
+    <script>
+      var box = document.getElementById('box');
+      var boxList = box.getElementsByTagName('li');
+      /* 
+       自定义属性编程思想
+          前期把一些值存储到元素的自定义属性上，后期需要用到的时候，直接从属性上获取到这些值即可
+      */
+      for (var i = 0; i < boxList.length; i++) {
+        var bg = i % 2 === 0 ? 'white' : 'pink';
+        boxList[i].style.backgroundColor = bg;
+        // 设置自定义属性myOriginBg用来存储每一个li的背景
+        boxList[i].myOriginBg = bg;
+        boxList[i].onmouseover = function () {
+          this.style.backgroundColor = 'lightblue';
+        };
+        boxList[i].onmouseout = function () {
+          this.style.backgroundColor = this.myOriginBg;
+        };
+      }
+    </script>
+  </body>
+</html>

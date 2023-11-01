@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .box {
+        box-sizing: border-box;
+        padding: 0;
+        width: 200px;
+        height: 40px;
+        margin: 20px auto;
+        line-height: 40px;
+        text-align: center;
+        position: relative;
+        border: 1px solid lightpink;
+        z-index: 99;
+        cursor: pointer;
+      }
+      .box .detail {
+        z-index: 1;
+        display: none;
+        position: absolute;
+        right: -1px;
+        top: 39px;
+        box-sizing: border-box;
+        width: 500px;
+        height: 100px;
+        line-height: 100px;
+        text-align: center;
+        border: 1px solid lightblue;
+      }
+
+      /* 如果是点击实现显示，不需要js也可以，可以基于target 实现手风琴效果 */
+    </style>
+  </head>
+  <body>
+    <div class="box" id="box">
+      <span>购物车</span>
+      <div class="detail" id="detail" style="display: none">购物车相关</div>
+    </div>
+    <!-- 
+       传统基于操作DOM的方法实现业务需求
+       1.想操作谁就先获取谁
+       2.给某元素绑定某事件
+       3.在事件触发的时候修改元素的样式等
+
+     -->
+    <script>
+      let box = document.getElementById('box');
+      let detail = document.getElementById('detail');
+      // 元素对象.onxxx = function(){} 事件绑定，xxx事件类型(click / mouserover / mousedown / keydown ...)
+      // 截止只有 事件绑定这里没有遵循驼峰命名法
+      box.onclick = function () {
+        let n = detail.style.display;
+        if (n === 'none') {
+          detail.style.display = 'block';
+          box.style.borderBottomColor = '#FFF';
+        } else {
+          detail.style.display = 'none';
+          box.style.borderBlockColor = 'lightpink';
+        }
+        // detail.style.display = 'block';
+        // box.style.borderBottomColor = '#FFF '  属性也是遵循驼峰命名
+        // 元素对象.style.xxx = xxx 修改元素的某一个样式值(操作的是元素行内样式) 所以如果我们没有把样式写在行内上，在js中基于.style.xxx的方式是无法获取到样式的
+        //1.首先获取detail原有的样式(显示还是隐藏)：元素.style.xxx就是获取某一个样式
+        console.log(detail.style.display); //什么也没有 因为此时没有行内样式
+      };
+    </script>
+  </body>
+</html>
