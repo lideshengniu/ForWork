@@ -70,3 +70,31 @@ for (let i = 0; i < ary.length; i++) {
   obj[item] = item;
 }
 console.log(ary);
+
+//封装成方法
+/* 
+@params 
+ary[Array] 要去重的数组
+@return 
+ [Array]去重后的数组
+
+*/
+function unique(ary) {
+  let obj = {};
+
+  for (let i = 0; i < ary.length; i++) {
+    let item = ary[i];
+    // 3 每一次存储之前进行判断，验证obj中是否存在这一项
+    if (obj[item] !== undefined) {
+      ary[i] = ary[ary.length - 1];
+      // 也可以直接用 ary.splice(ary.length - 1, 1)
+      // ary.length--会自动把最后一项删除
+      ary.length--;
+      // ary.splice(i, 1);
+      i--;
+      continue;
+    }
+    obj[item] = item;
+  }
+  return ary;
+}
