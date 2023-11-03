@@ -9,8 +9,8 @@ console.log(Number('')); // 0
 console.log(Number({ a: 1 })); // NaN
 console.log(Number([])); // 0
 
-console.log({}.toString(), '====');
-console.log([].toString());
+console.log({}.toString(), '===='); //[Object Object]
+console.log([].toString()); //""
 console.log([12].toString());
 console.log(Number([12].toString()));
 console.log(Number([12, 223].toString()));

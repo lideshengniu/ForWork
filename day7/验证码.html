@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="codeInp" />
+    <br />
+    <span id="codeBox">AAAA</span>
+    <button id="changeCode">看不清换一张</button>
+    <script>
+      let codeInp = document.getElementById('codeInp'),
+        codeBox = document.getElementById('codeBox'),
+        changeCode = document.getElementById('changeCode');
+      /* queryCode 获取到四位随便的验证码，然后放到指定的盒子照片中
+         @params
+         @returns
+        
+        */
+      function queryCode() {
+        let area = 'ABCDEFGHIGKLM';
+        let result = '';
+        for (let i = 0; i < 4; i++) {
+          let ran = Math.round(Math.random() * 12);
+          result += area.charAt(ran);
+        }
+        codeBox.innerHTML = result;
+      }
+      queryCode();
+      changeCode.onclick = queryCode;
+      //文本框失去焦点的时候：验证用户输入的内容和验证码是否相同，给予相关的提示，如果不一样需要重新生成验证码
+      //onblur：文本框失去焦点事件
+      codeInp.onblur = function () {
+        let val = codeInp.value,
+          code = codeBox.innerHTML;
+        //不区分大小写的验证（都转成小写）
+        if (val.toLowerCase() === code.toLowerCase()) {
+          alert('ok');
+        } else {
+          alert('mistake');
+          queryCode();
+        }
+      };
+    </script>
+  </body>
+</html>

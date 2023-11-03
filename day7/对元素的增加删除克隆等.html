@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      .RED {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="haha">哈哈</div>
+    <script>
+      let box = document.createElement('div');
+      box.id = 'boxActive';
+      box.style.width = '200px';
+      box.style.height = '200px';
+      box.className = 'RED';
+
+      let text = document.createTextNode('珠峰培训');
+      box.appendChild(text);
+      document.body.appendChild(box);
+      let haha = document.getElementById('haha');
+      // 放到指定元素前:容器.insertBefore([新增元素],[指定元素])
+      // box放到哈哈前面
+      document.body.insertBefore(box, haha);
+
+      //   document.body.insertBefore(haha, box);
+    </script>
+    <!-- <script src="./节点增删改.js"></script> -->
+  </body>
+</html>
