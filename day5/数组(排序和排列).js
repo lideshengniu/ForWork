@@ -27,6 +27,7 @@ ary = [12, 15, 9, 28, 10, 22];
 ary.sort(); // 10 12 15 22 28 9
 ary.sort((a, b) => {
   //a-b是由小到大   b-a是由大到小
+  console.log(a, b, '===');
   return a - b;
 });
 console.log(ary);
