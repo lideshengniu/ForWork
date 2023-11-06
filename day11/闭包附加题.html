@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button>按钮1</button>
+    <button>按钮2</button>
+    <button>按钮3</button>
+    <button>按钮4</button>
+    <button>按钮5</button>
+    <script>
+      var buttons = document.querySelectorAll('button');
+      //   for (var i = 0; i < buttons.length; i++) {
+      //     var item = buttons[i];
+      //     item.myIndex = i;
+      //     item.onclick = function () {
+      //       alert(this.myIndex);
+      //     };
+      //   }
+
+      //   for (var i = 0; i < buttons.length; i++) {
+      //     (function (i) {
+      //       var item = buttons[i];
+      //       item.onclick = function () {
+      //         alert(i);
+      //       };
+      //     })(i);
+      //   }
+      // let 的方法和闭包的方法原理类似，都是每一轮循环产生一个私有的作用域(let块作用域),保存住当前循环i的值，供后期调取使用
+      for (let i = 0; i < buttons.length; i++) {
+        var item = buttons[i];
+        item.myIndex = i;
+        item.onclick = function () {
+          alert(this.myIndex);
+        };
+      }
+      // 最炫
+      [].forEach.call(buttons, (item, index) => {
+        item.onclick = function () {
+          alert(index);
+        };
+      });
+    </script>
+  </body>
+</html>

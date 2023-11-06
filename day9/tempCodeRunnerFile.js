@@ -1,3 +1,2 @@
-let a = 12;
-// let a = 13;
-// console.log(a); //uncaught syntaxerror:identifier 'a' has already been declared
+// console.log(a);//=>Uncaught ReferenceError a is not defined
+console.log(typeof a); //==>"undefined"   正常应该是报错因为没有a  但是浏览器有bug (暂时性死区)
