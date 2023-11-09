@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //基于内置类原型拓展方法
+      Object.prototype.hasPubProperty = function (property) {
+        //=>验证传递的属性名合法性(一般只能是数字或字符串等基本值)
+        let x = ['string', 'number', 'boolean'];
+        y = typeof property;
+        if (!x.includes(y)) return false;
+        // 开始检验是否为公有的属性
+        let n = property in this,
+          m = this.hasOwnProperty(property);
+        return n && !m;
+      };
+      //   console.log(Array.prototype.hasPubProperty('push')); //false)
+      //   console.log([3].hasPubProperty('push'));
+
+      // [3].hasPubProperty('push'); //true
+    </script>
+    <script src="./1-构造函数.js"></script>
+  </body>
+</html>
