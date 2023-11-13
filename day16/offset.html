@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        height: 100%;
+        background: -webkit-linear-gradient(top left, blue, red, yellow);
+      }
+      .link {
+        display: none;
+        position: fixed;
+        box-sizing: border-box;
+        width: 100px;
+        height: 100px;
+        background: lightblue;
+        font-size: 16px;
+        color: #000;
+        text-decoration: none;
+        text-align: center;
+        line-height: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="javascript:;" id="link" class="link">回到顶部</a>
+    <script>
+      let HTML = document.documentElement,
+        link = document.getElementById('link');
+      //1.当浏览器滚动条滚动的时候，我们进行验证：卷去的高度超过两屏，我们让#link显示
+      function check() {
+        let winH = HTML.clientHeight,
+          scrollT = HTML.scrollTop;
+        link.style.display = scrollT >= winH * 2 ? 'block' : 'none';
+      }
+      window.onscroll = check;
+      //2.点击回到顶部
+      LINK.onclick = function () {
+        LINK.style.display = 'none'; //但是当点击的时候它会消失出现再消失 因为点击的时候触发了scroll事件所以它又显示出来
+
+        // 先禁止滚动事件触发（因为再回到顶部的运动过程中，如果事件一直在，会计算按钮显示隐藏的样式，无法让按钮隐藏）
+        window.onscroll = null;
+        /* 实现动画 */
+        let step = 100;
+        let timer = setInterval(() => {
+          //每一次获取最新的scroll-top值，在现有的基础上减去步上，让其走一步
+          let curT = HTML.scrollTop;
+          if (curT === 0) {
+            //边界判断：已经回到顶部后，我们清楚定时器
+            clearInterval(timer);
+            // 恢复滚动条滚动的监听事件
+            window.onscroll = check;
+            return;
+          }
+          curT -= step;
+          HTML.scrollTop = curT;
+        });
+        HTML.scrollTop = 0;
+      };
+    </script>
+  </body>
+</html>

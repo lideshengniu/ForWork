@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      * {
+        padding: 0;
+        border: 0;
+      }
+      img {
+        border: none;
+        background-size: cover;
+      }
+      img[src=''] {
+        display: none;
+      }
+      .imgBox {
+        box-sizing: border-box;
+        margin: 800px auto;
+        width: 300px;
+        height: 254px;
+        background: #ccc;
+      }
+      .imgBox img {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+    <!-- 
+        图片延迟加载
+        1.结构中，我们用一个盒子包裹着图片（在图片不展示的时候，可以占据着这个位置，并且设置默认的背景图或者背景颜色）
+        2.最开始，img的src中不设置任何的图片地址，把图片的真实地址设置给自定义属性DATA-SRC/TRUE-IMG(最开始不展示图片：可以让图片隐藏)
+        3.当浏览器窗口完全展示到图片位置的时候，我们再去加载真实图片，并且让其显示出来(第一屏幕中的图片一般都会延迟加载，来等待其他资源先加载完)
+     -->
+    <div class="imgBox">
+      <img src="" alt="" trueImg="./新旧盒子模型.png" />
+    </div>
+    <script src="./图片延迟加载.js"></script>
+  </body>
+</html>

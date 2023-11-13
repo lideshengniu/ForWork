@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      .outer {
+        box-sizing: border-box;
+        margin: 20px auto;
+        width: 500px;
+        height: 500px;
+        background: lightcoral;
+        border: 10px solid orange;
+      }
+      .box {
+        box-sizing: border-box;
+        margin: 20px auto;
+        padding: 15px;
+        width: 300px;
+        height: 300px;
+        border: 10px solid red;
+        background-color: lightblue;
+        font-size: 18px;
+        line-height: 35px;
+        overflow: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer">
+      <div id="box" class="box">
+        故君子不争炎凉" "念白第二三段"
+        老君曰：大道无形，生育天地；大道无情，运行日月；大道无名，长养万物；吾不知其名，强名曰道。夫道者：有清有浊，有动
+        …
+      </div>
+    </div>
+    <script>
+      /* offset:获取当前元素距离body的左/上偏移(不论其父参照物是谁)
+       * @params
+          curEle:current element
+        @return 
+          [object]包含上/左偏移的信息  {top:xxx,left:xxx}
+       */
+      function offset(curEle) {
+        let par = curEle.offsetParent,
+          l = curEle.offsetLeft,
+          t = curEle.offsetTop;
+        //存在夫参照物，而且还没有找到body
+        while (par && par.tagName !== 'BODY') {
+          //在原有偏移的基础上累加：父参照物的边框，父参照物的偏移
+          if (!/MSIE 8\.0/.test(navigator.userAgent)) {
+            l += par.clientLeft;
+            t += par.clientTop;
+          }
+          l += par.offsetLeft;
+          t += par.offsetTop;
+          //继续获取上级参照物
+          par = par.offsetParent;
+        }
+        return {
+          top: t,
+          left: l,
+        };
+      }
+    </script>
+  </body>
+</html>

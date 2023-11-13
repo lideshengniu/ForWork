@@ -10,7 +10,7 @@ reverse:把数组倒过来排列
 // ary.reverse();
 // console.log(ary); // = >[22,10,28,9,15,12]
 
-//!!! 1.sort
+//!!! 2.sort
 /* 
 sort:实现数组的排序
 @params

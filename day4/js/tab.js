@@ -2,6 +2,7 @@ var tabBox = document.getElementById('tabBox');
 var tabList = tabBox.getElementsByTagName('div');
 var navBox = document.getElementById('navBox');
 var navList = navBox.getElementsByTagName('li');
+console.dir(navBox, '****************');
 for (var i = 0; i < navList.length; i++) {
   navList[i].onclick = function () {
     // 我想用的是点击这个LI的索引，但是I不是

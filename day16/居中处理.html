@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      .box {
+        margin: 20px auto;
+        box-sizing: border-box;
+        padding: 15px;
+        width: 300px;
+        height: 300px;
+        border: 10px solid red;
+        background-color: lightblue;
+        font-size: 18px;
+        line-height: 35px;
+        /* position: ; */
+        /* 第一种 */
+        /*    position: absolute;
+
+        top: 50%;
+        left: 50%;
+        margin-left: -150px;
+        margin-top: -150px; */
+      }
+      /* 第二种 */
+      /* .box {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+       // 基于css3中的位移，在不知道宽高的情况下也能实现效果
+        transform: translate(-50%, -50%);
+      } */
+      /* 第三种 
+         position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto auto;
+      
+      */
+      /* 第四种 
+           父亲设置display:flex
+            justyify-content:center;
+            align-items:center
+      */
+    </style>
+  </head>
+  <body>
+    <div id="box" class="box">
+      故君子不争炎凉" "念白第二三段"
+      老君曰：大道无形，生育天地；大道无情，运行日月；大道无名，长养万物；吾不知其名，强名曰道。夫道者：有清有浊，有动
+      …
+    </div>
+    <script>
+      // js实现居中
+      //   let winW = document.documentElement.clientWidth,
+      //     winH = document.documentElement.clientHeight,
+      //     box = document.getElementById('box');
+      //   box.style.position = 'absolute';
+      //   box.style.left = (winW - 300) / 2 + 'px';
+      //   box.style.top = (winH - 300) / 2 + 'px';
+      let box = document.getElementById('box');
+      console.log(document.documentElement.clientWidth);
+    </script>
+  </body>
+</html>
