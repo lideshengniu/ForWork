@@ -53,9 +53,10 @@ fn(); //哈哈
 f = function () {
   return true;
 }; // =>window.f = ...
-g = (function () {
+g = function () {
   return false;
-})(function () {
+};
+(function () {
   /* 
    函数执行会形成一个私有作用域
     1.变量提升 function g

@@ -1,8 +1,8 @@
 //!!!1 ==================================
 // let obj = {};
-// // arg 可以叫任何名字 没有影响 ...AA ...AAAA 都可以
+// arg 可以叫任何名字 没有影响 ...AA ...AAAA 都可以
 // let fn = (context = window, ...arg) => {
-//   //console.log(arguments) =>uncaught referencerror:arguments is not defined 箭头函数中没有arguments
+//console.log(arguments) =>uncaught referencerror:arguments is not defined 箭头函数中没有arguments
 // };
 // fn(obj, 10, 20, 30); //=>context:obj  arg:[10,20,30]
 // fn(); //=>context:window arg:[]
@@ -16,7 +16,7 @@
 //   console.log(this.name);
 // };
 
-// //FN所处的执行上下文中的this是window
+//FN所处的执行上下文中的this是window
 // fn(10); //"WIN"
 // fn.call(obj, 10); //=>this:window
 // document.body.onclick = fn; //this:window 不是我们预期的body

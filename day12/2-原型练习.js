@@ -55,7 +55,7 @@ console.log(f1.a); //1
 console.log(f1.prototype); //Fn()
 console.log(f1.b); //function
 console.log(f1.hasOwnProperty('b')); //false
-console.log(ff1.constructor == Fn); //true
+console.log(f1.constructor == Fn); //true
 
 ///! 5
 ~(function () {

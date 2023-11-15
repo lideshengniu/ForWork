@@ -145,7 +145,8 @@ console.log(a); //undefined
  fn(10)
  fn(10,function(){})
 */
-var foo = 'hello'(function (foo) {
+var foo = 'hello';
+(function (foo) {
   /* 
      形参赋值 & 变量提升
      foo = "hello"

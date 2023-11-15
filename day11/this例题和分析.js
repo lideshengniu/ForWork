@@ -77,9 +77,9 @@ var num = 10;
 var obj = { num: 20 };
 30;
 obj.fn = (function (num) {
-  this.num = num * 3;
-  num++;
-  21;
+  this.num = num * 3; //window 60
+  num++; //21
+
   return function (n) {
     this.num += n;
     num++;
@@ -88,6 +88,6 @@ obj.fn = (function (num) {
   };
 })(obj.num);
 var fn = obj.fn;
-fn(5);
+fn(5); //window.num 65 22
 obj.fn(10);
 console.log(num, obj.num); //65 30
