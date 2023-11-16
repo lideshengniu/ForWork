@@ -29,7 +29,42 @@ if (a == 1 && a == 2 && a == 3) {
   console.log(1);
 }
 //!!! =>shift：删除数组第一项，把删除的内容返回，原有数组改变
-let a = [1, 2, 3];
+// let a = [1, 2, 3];
+// a.toString = a.shfit;
+// if (a == 1 && a == 2 && a == 3) {
+//   console.log(1);
+// }
+
+/* 
+ES6 中新增加的一些方法
+   String.fromCharCode([n]) <=>'z'.charCodeAt()
+   Array.from()
+   Array.isArray()
+   Object.create([OBJ])
+   Object.defineProperty()
+*/
+// let obj = {};
+// Object.defineProperty(obj, 'name', {
+//   value: '珠峰培训',
+//   writable: false,
+
+//   get: function () {
+//     console.log('哈哈');
+//     return this.value;
+//   },
+//   set: function () {
+//     console.log('呵呵呵');
+//     this.value = '呵呵呵';
+//   },
+// });
+// console.log(obj.name);
+let n = 0;
+Object.defineProperty(window, 'a', {
+  get: function () {
+    this.value ? this.value++ : (this.value = 1);
+    return this.value;
+  },
+});
 if (a == 1 && a == 2 && a == 3) {
-  console.log(1);
+  console.log('ok');
 }

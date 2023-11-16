@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+       //递归：函数执行的时候自己调用自己
+       function fn(){
+          fn() //uncaught rangeerror:Maximum call stack size exceeded 这种死递归会导致栈溢出
+       }
+
+      // */
+      //   function fn() {
+      //     setTimeout(fn, 0); //这种看似死递归的方法不会导致栈溢出
+      //   }
+      //   function sum(n) {
+      //     if (n > 10) {
+      //       return 0;
+      //     }
+      //     return n + sum(n + 1);
+      //   }
+      //   let total = sum(1);
+      //   console.log(total);
+      function quick(ary) {
+        //4结束递归(当ary中小于等于一项。则不用处理)
+        if (ary.length <= 0) {
+          return ary;
+        }
+        //1.找到数组的中间项，在原有的数组中把它移除
+        let middleIndex = Math.floor(ary.length / 2);
+        //splice 返回的是数组
+        let middleValue = ary.splice(middleIndex, 1)[0];
+
+        //2.准备左右两个数组，循环剩下数组中的每一项，比当前项小的放到左边数组，反之放到右边数组中
+        let aryLeft = [],
+          aryRight = [];
+        for (let i = 0; i < ary.length; i++) {
+          let item = ary[i];
+          item < middleValue ? aryLeft.push(item) : aryRight.push(item);
+        }
+        //3.递归方式让左右两边的数组持续这样处理，一直到左右两边都排序好为止（最好让左边+中间+右边拼接成为最后的结果)
+        return quick(aryLeft).concat(middleValue, quick(aryRight));
+      }
+    </script>
+  </body>
+</html>
