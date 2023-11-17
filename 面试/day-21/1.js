@@ -4,7 +4,7 @@ Array.prototype.push = function(val){
     this[this.length] = val
     
     => this.length 在原来的基础上加1 this.length++
-    return this.length
+    return this.length++
 }
 */
 let obj = {

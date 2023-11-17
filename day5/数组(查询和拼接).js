@@ -35,7 +35,7 @@ concat:数组的拼接
 // let ary1 = [10, 20, 30];
 // let ary2 = [40, 50, 60];
 // let res = ary1.concat('珠峰培训');
-// let res1 = ary1.concat('珠峰培训', ary2); //[10, 20, 30,"珠峰培训",40, 50, 60]
+//!! let res1 = ary1.concat('珠峰培训', ary2); //[10, 20, 30,"珠峰培训",40, 50, 60] 如果传入的数组也可以的
 // console.log(res); // [10, 20, 30,"珠峰培训"]
 
 //!!3. toString
