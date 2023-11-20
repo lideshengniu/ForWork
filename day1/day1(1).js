@@ -8,6 +8,7 @@ console.log(Number(' ')); // 0
 console.log(Number('')); // 0
 console.log(Number({ a: 1 })); // NaN
 console.log(Number([])); // 0
+console.log(Number([''])); //0
 
 console.log({}.toString(), '===='); //[Object Object]
 console.log([].toString()); //""

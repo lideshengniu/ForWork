@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="box" id="box"></div>
+    <script>
+      //=>现代版浏览器都要“渲染队列”机制：发现某一行要修改元素的样式，不立即渲染，而是看看下一行，如果下一行也会改变样式，则把修改样式的操作放到“渲染队列中”。。。一直到不再是修改样式的操作 但是读取width这些属性不会导致渲染队列中断 下面这些指定属性才会，整体渲染一次，引发一次回流
+      //所以这段就只引起了一次回流
+      let box = document.getElementById('box');
+      //   box.style.width = '100px';
+      //   box.style.height = '100px';
+      //   box.style.background = 'red';
+      //   box.style.margin = '20px auto';
+      //=>offsetTop、offsetLeft、offsetWidth、offsetHeight、clientTop、clientLeft、clientWidth、clientHeightscrollTop、scrollLeft、scrollWidth、scrollHeight、getComputedStyle、currentStyle...会刷新渲染队列
+      //!===== 下面触发三次回流  这里就是读取和修改在一起所以导致多次回流可以采取读写分离
+      box.style.width = '100px';
+      console.log(box.offsetWidth);
+      box.style.height = '100px';
+      console.log(box.offsetWidth);
+      box.style.background = 'red';
+      box.style.margin = '20px auto';
+      //== 读写分离
+      box.style.width = '100px';
+      box.style.height = '100px';
+      box.style.background = 'red';
+      box.style.margin = '20px auto';
+      console.log(box.offsetWidth);
+      console.log(box.offsetWidth);
+      /* 
+      在浏览器的渲染机制中，当你对DOM进行样式更改时，这些更改通常不会立即反映在屏幕上。相反，浏览器会尝试“批处理”样式更改以提高性能，这就是所谓的渲染队列或样式队列。浏览器会等到一个脚本运行结束或触发某些事件来执行这些更改，通常这发生在JavaScript执行引擎空闲时。
+
+      当你在脚本中更改样式后，紧接着执行 console.log("ss")，更改样式的操作通常不会立即引起回流（reflow）或重绘（repaint），因为 console.log() 不会影响DOM或样式计算。浏览器会将样式更改操作排队，然后在适当的时机，批量进行回流和重绘来更新渲染。
+
+      是，如果在更改样式后，你紧接着读取了某些特定的布局属性（如前面提到的 offsetHeight 等），那么浏览器需要提供最新的布局信息，这时就会强制执行回流，以确保属性的值是最新的。这种强制回流的情况就是“渲染队列”的中断。
+
+因此，如果你的代码看起来像这样：
+      
+      */
+    </script>
+  </body>
+</html>

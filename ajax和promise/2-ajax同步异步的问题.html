@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* 
+        所有事件绑定都是异步编程
+        */
+      let xhr = new XMLHttpRequest();
+      xhr.open('GET', 'json/data.json');
+      // 设置事件绑定之前状态1
+      xhr.onreadystatechange = function () {
+        console.log(xhr.readyState); //2 3 4
+      };
+      xhr.send(null);
+      // ---------------------------------------------------------
+
+      let xhr = new XMLHttpRequest();
+      xhr.open('GET', 'json/data.json');
+      xhr.send(null);
+      xhr.onreadystatechange = function () {
+        console.log(xhr.readyState); //2 3 4
+      };
+
+      let xhr = new XMLHttpRequest();
+      xhr.open('GET', 'json/data.json');
+      xhr.send(null);
+      for (let i = 1; i < 10000000000; i++) {}
+      xhr.onreadystatechange = function () {
+        console.log(xhr.readyState); //2 3 4
+      };
+      //因为 send后是操作浏览器去和服务器交互这个里面是是事件放入事件队列  而 onreadystatechange也是事件 他们会在主线程执行完成后 开辟新线程去执行他们
+
+      //ajax同步
+
+      let xhr = new XMLHttpRequest();
+      xhr.open('GET', 'json/data.json', false);
+      xhr.onreadystatechange = function () {
+        console.log(xhr.readyState); //4  只输出一次  使用ajax同步编程，不能再状态码为2的时候获取到响应头的信息，但是状态为4的时候也是可以获取到头和主体信息
+      };
+      xhr.send(null);
+      // =========
+
+      let xhr = new XMLHttpRequest();
+      xhr.open('GET', 'json/data.json', false);
+      xhr.send(null); //=>执行后，只有状态码为4才会继续处理下面的代码
+      //=>状态码为4的时候绑定的，而状态不会再变了
+      xhr.onreadystatechange = function () {
+        console.log(xhr.readyState); //一次不输出
+      };
+
+      //API  application programming interface 凡是可被别人调用，并且给予反馈结果的都可以被称之为API接口
+    </script>
+  </body>
+</html>

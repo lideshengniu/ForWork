@@ -260,8 +260,8 @@
 //     return result;
 //   }
 // })();
-let ary1 = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2'];
-let ary2 = ['A', 'B', 'C', 'D'];
+// let ary1 = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2'];
+// let ary2 = ['A', 'B', 'C', 'D'];
 // ary2 = ary2.map((item) => item + '珠峰');
 // ary1 = ary1.concat(ary2);
 // ary1.sort();
@@ -297,9 +297,20 @@ let ary2 = ['A', 'B', 'C', 'D'];
 //   console.log(b);
 // })();
 // console.log(b);
-nums1.forEach((item, index) => {
-  //=>index是第一个数组当前项的索引
-  //=>n当前项在第二个数组中找到相同那一项的索引
+// nums1.forEach((item, index) => {
+//   //=>index是第一个数组当前项的索引
+//   //=>n当前项在第二个数组中找到相同那一项的索引
 
-  nums1.splice(index, 2);
-});
+//   nums1.splice(index, 2);
+// });
+
+// null "" " "[] [""]
+// console.log(Number(['']));
+
+// console.log(parseFloat(10));
+// let a = {};
+// console.log(a.prototype.toString());
+// let a = 10 + null + true + [] + undefined + '珠峰' + null + [] + 10 + false;
+// console.log(a);
+//'11undefined珠峰null10false'
+// 0 NaN "" null undefined
