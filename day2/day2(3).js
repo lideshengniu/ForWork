@@ -18,7 +18,7 @@ function fn() {} //function类型
  局限性
   1.typeof null =>"object" 但是null并不是对象
   2.基于typeof无法细分出当前值是普通对象还是数组对象等，因为只要是对象数据类型，返回的结果都是“object”
-
+  3. typeof ()=>{} //"function"
 */
 console.log(typeof 1);
 let a = NaN;

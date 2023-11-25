@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //点then只是把它放进事件池 但是没有执行
+      //执行then /catch/finally 返回的结果给是一个全新的promise实例，所以可以链式写下去，下一个then中哪个方式会被执行，由上一个then中某个方法执行的结果来决定
+      //上一个then中某个方法的返回值会传递给下一个then的某个方法中
+      new Promise((resolve, reject) => {
+        // resolve(100); //把第一个promise实例的value值改为100
+        reject(-100);
+      })
+        .then(
+          (result) => {
+            console.log(result);
+            return result * 10; //then中的return 的结果相当于把当前这个新的promise实例中的value值改为返回值
+          },
+          (err) => {
+            console.log(err);
+            return err / 10;
+          }
+        )
+        .then(
+          (A) => {
+            console.log(A); //-10 如果上一个then没有return 就接收不到数据就是undefined
+          },
+          (B) => {
+            console.log(B);
+          }
+        );
+      //   let pro1 = new Promise((resolve, reject) => {
+      //     setTimeout(() => {
+      //       let ran = Math.random();
+      //       ran < 0.5 ? reject(ran) : resolve(ran);
+      //     }, 1000);
+      //   });
+      //   let pro2 = pro1.then(
+      //     (result) => {},
+      //     (err) => {}
+      //   );\
+      //如果当前promise实例的状态确定后，都会到对应的then中找方法,如果then中没有对应的这个方法，则会向下顺延
+      //then(onFulfilled) THEN（null,onRejected)
+      //   new Promise((resolve, reject) => {
+      //     reject(-100);
+      //   })
+      //     .then((A) => {
+      //       console.log(A);
+      //       return result * 10;
+      //     })
+      //     .catch((B) => {
+      //       console.log(B);
+      //       return B * 10;
+      //     });
+
+      //====
+      new Promise((resolve, reject) => {
+        resolve(100);
+      })
+        .then((A) => {
+          console.log(AAAA); //这里就报错了所以接下来会走error 让.Then创建的promise实例变为失败状态，并且把报错的原因修改此promise的value值
+          return A * 10;
+        })
+        .catch((B) => {
+          console.log(B); //这里打印的可不是1000  而是错误原因 ReferenceError:AAAA is not defined
+          return B * 10;
+        });
+      //======
+      new Promise((resolve, reject) => {
+        resolve(100);
+      })
+        .then((A) => {
+          console.log(AAAA); //这里就报错了所以接下来会走error 让.Then创建的promise实例变为失败状态，并且把报错的原因修改此promise的value值
+          return A * 10;
+        })
+        .catch((B) => {
+          console.log(B); //这里打印的可不是1000  而是错误原因 ReferenceError:AAAA is not defined
+          return '@';
+        })
+        .then((c) => {
+          console.log(c); //执行因为catch传来的是没有报错的 @
+        });
+      //=====
+      new Promise((resolve, reject) => {
+        resolve(100);
+      })
+        .then()
+        .catch((x) => {
+          console.log(1);
+        })
+        .then((x) => {
+          console.log(2); //执行因为catch传来的是没有报错的 @
+        })
+        .then((x) => {
+          console.log(3);
+        })
+        .catch((x) => {
+          console.log(4);
+        })
+        .then((x) => {
+          console.log(AAA);
+        })
+        .catch()
+        .then(null, (x) => {
+          console.log(5);
+        }); //resolve成功 .then没处理 没报错不走catch 然后console.log(2) 没有保错继续走 console.log(3) 跳过catch    console.log(AAA)报错但是下面的catch没有捕获走then的error console.log(5)
+    </script>
+  </body>
+</html>

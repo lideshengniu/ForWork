@@ -314,3 +314,31 @@
 // console.log(a);
 //'11undefined珠峰null10false'
 // 0 NaN "" null undefined
+
+//1 Object.create(obj)
+// ~(function () {
+//   function create(proto = null) {
+//     let obj = {};
+//     obj.__proto__ = proto;
+//     return obj;
+//   }
+//   Object.prototype.create = create;
+// })();
+// let c = Object.create();
+// cobsole.log(c);
+// let num = '15628954'; //"15,628,954"千分符
+// function millimeter(num) {
+//   return num.replace(/\d{1,3}(?=(\d{3})+)$/g, (content) => {
+//     return content + ',';
+//   });
+// }
+// let a = millimeter(num);
+// console.log(num);
+// num = num.split('').reverse();
+// for (let i = 2; i < num.length - 1; i += 4) {
+//   num.splice(i + 1, 0, ',');
+// }
+// num = num.reverse().join('');
+// console.log(num);
+let num = 12;
+console.log(num.toString(2));

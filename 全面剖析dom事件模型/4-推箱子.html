@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        border: 0;
+        margin: 0;
+      }
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+        background: lightcyan;
+      }
+      .container {
+        box-sizing: border-box;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        width: 400px;
+        height: 400px;
+        background: lightblue;
+      }
+      .container .box {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100px;
+        height: 100px;
+        background: lightcoral;
+        transition: 0.3s linear;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="box"></div>
+    </div>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+      let $container = $('.container'),
+        $box = $container.children('.box');
+      $(document).on('keydown keypress', function (ev) {
+        //1.首先获取按键码和元素当前的top/left
+        let code = ev.keyCode,
+          T = parseFloat($box.css('top')),
+          L = parseFloat($box.css('left')),
+          step = 20;
+        //2.根据键盘码计算移动的距离
+        switch (code) {
+          case 37:
+            L -= step;
+            break;
+          case 38:
+            T -= step;
+            break;
+          case 39:
+            L += step;
+            break;
+          case 40:
+            T += step;
+            break;
+        }
+        //4.边界判断
+        let minL = 0,
+          maxL = $container.outerWidth() - $box.outerWidth(),
+          minT = 0,
+          maxT = $container.outerHeight() - $box.outerHeight();
+        L = L < minL ? (L = minL) : L > maxL ? maxL : L;
+        T = T < minT ? (T = minT) : T > maxT ? maxT : T;
+        console.log(ev.keyCode);
+        //3.把最新的样式重新赋值为盒子
+        $box.css({
+          left: L,
+          top: T,
+        });
+      });
+    </script>
+  </body>
+</html>

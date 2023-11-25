@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="box"></div>
+    <script>
+      let box = document.getElementById('box');
+      // new Date() 获取客户端本地当前时间(不能那它做重要依据，因为用户可以随意修改)
+      /* 倒计时抢购需要从服务器获取当前时间  AJAX
+           问题：时间差（从服务器把时间给客户端，到客户端获取到这个信息，中间经历的时间就是时间差，而时间差是不可避免的,我们应尽可能减少这个误差)
+            - 从响应头获取时间(ajax异步)因为要想获得响应头 采用同步不能获取到状态2的时候 最多只能获取到状态4
+            - 基于HEAD请求（只获取响应头信息）
+
+      */
+      let target = new Date('2023/12/14 18:00:00'),
+        now = null,
+        timer = null;
+      // =>从服务器获取时间:获取到时间后再做其他的事情
+      function func(callback) {
+        let xhr = new XMLHttpRequest();
+        xhr.open('HEAD', '../json/data.json', true);
+        xhr.onreadystatechange = function () {
+          if (!/^(2|3)\d{2}$/.test(xhr.status)) return;
+          if (xhr.readyState === 2) {
+            now = new Date(xhr.getResponseHeader('Date'));
+            callback && callback();
+          }
+        };
+        xhr.send(null);
+      }
+      //开启倒计时模式
+      function computed() {
+        let spanTime = target - now;
+        console.log(spanTime);
+        if (spanTime <= 0) {
+          //=>到抢购点结束时间
+          clearInterval(timer);
+          timer = null;
+          box.innerHTML = '开枪了';
+          console.log(1);
+
+          return;
+        }
+        let hours = Math.floor(spanTime / (60 * 60 * 1000));
+        spanTime -= hours * 60 * 60 * 1000;
+        let minutes = Math.floor(spanTime / (60 * 1000));
+        spanTime -= minutes * 60 * 1000;
+        let seconds = Math.floor(spanTime / 1000);
+        box.innerHTML = `距离抢购还剩${hours < 10 ? '0' + hours : hours}:${
+          minutes < 10 ? '0' + minutes : minutes
+        }:${seconds < 10 ? '0' + seconds : seconds}`;
+        //=>每一次计算完，我们需要让now再原来的基础上加上一秒(第一次从服务器获取到时间，后期直接基于这个时间自己减即可，不要每隔一秒重新从服务器拿)
+        //span Time相当于你定了一个时间 是抢购点 然后用他去减去服务器的时间就是剩下多久才到的意思 now加一是因为每过一秒 离抢购时间就接近了一步
+        // 这样不行这样是字符串拼接
+        // now = new Date(now + 1000);
+        now = new Date(now.getTime() + 1000);
+        console.log();
+      }
+
+      func(() => {
+        computed();
+        timer = setInterval(computed, 1000);
+      });
+    </script>
+  </body>
+</html>

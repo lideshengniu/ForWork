@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="node_modules/axios/dist/axios.min.js"></script>
+    <script>
+      /* axios:一款基于promise设计模式封装的ajax库(jq中的ajax就是最普通的ajax库，没有基于promise管理) */
+      //get类
+      /*
+          =>axios.get([URL],[OPTIONS])
+          axios.get()
+          axios.delete()
+          axios.head()
+
+        */
+      //post类
+      /*
+         =>axios.post([URL],[DATA],[OPTIONS]):DATA通过请求主体传递给服务器的内容
+         axios.post()
+         axios.put()
+       */
+      //   axios.get('json/data.json',{
+      //     headers:{
+      //         //设置 请求头
+      //         AAA:encodeURIComponent("珠峰哈哈哈")
+      //     },
+      //     params:{  //unlencoded
+      //         //=>等价于jq中的data：会把params中的内容拼接为X-WWW-FORM-URLENCODED这种格式，基于url问号传参传递给服务器
+      //         lx:1,
+      //         from:'WX'
+      //     },
+      //     //=>AXIOS本身只有在http状态以2开头的时候才认为是成功，其余都认为是失败状态，当然我们可以自己来设置 ，基于validateStatus这个来修改
+      //     validateStatus:function(status){
+      //         return status >=200 && status<300
+      //     }
+      //   })
+      /*
+       OPTIONS
+          baseURL:基础的url路径
+          transformRequest:处理请求参数(对post系列有作业)
+          transformReponse:把返回的结果进行处理
+          headers:设置请求头
+          params:get系列请求传递给服务器的内容
+          paramsSerializer:传递参数的序列化
+          timeout：超时时间
+          withCredentials：跨域请求中是否允许携带凭证
+          responseType:预设服务器返回结果的格式，默认是json，支持BUFFER/TEXT/STREAM/DOCUMENT...
+          validateStatus: AXIOS本身只有在http状态以2开头的时候才认为是成功，其余都认为是失败状态，当然我们可以自己来设置 ，基于validateStatus这个来修改
+              validateStatus:function(status){
+                return status >=200 && status<300
+            }
+            ....
+          */
+      //   axios
+      //     .get('../json/data.json', {
+      //       headers: {
+      //         AAA: encodeURIComponent('珠峰哈哈哈'),
+      //       },
+      //       params: {
+      //         lx: 1,
+      //         from: 'WX',
+      //       },
+      //     })
+      //     .then((result) => {
+      //       /*
+      //         CONFIG:我们自己配置的选项信息
+      //         DATA:存储的是响应主体内容
+      //         HEADERS:存储响应头的信息
+      //         REQUEST:ajax实例
+      //         STATUS:响应状态码
+      //         STATUS-TEXT:状态码的描述
+      //         */
+      //       console.log(result);
+      //       return result.data;
+      //     })
+      //     .catch((reason) => {
+      //       console.log(reason);
+      //       throw new Error(reason);
+      //     })
+      //     .then((data) => {
+      //       //=>data：从服务器获取的响应主体内容
+      //     });
+    </script>
+    <script>
+      //   axios
+      //     .post(
+      //       '../json/data.json',
+      //       {
+      //         lx: 1,
+      //         from: 'WX',
+      //       },
+      //       {
+      //         headers: {
+      //           AAA: encodeURIComponent('珠峰哈哈哈'),
+      //         },
+      //         transformRequest: function (data) {
+      //           if (!data) return data;
+      //           let str = ``;
+      //           for (let key in data) {
+      //             if (!data.hasOwnProperty(key)) break;
+      //             str += `&${key}=${data[key]}`;
+      //           }
+      //           return str.substring(1);
+      //         },
+      //       }
+      //     )
+      //     .then((result) => {
+      //       /*
+      //         CONFIG:我们自己配置的选项信息
+      //         DATA:存储的是响应主体内容
+      //         HEADERS:存储响应头的信息
+      //         REQUEST:ajax实例
+      //         STATUS:响应状态码
+      //         STATUS-TEXT:状态码的描述
+      //         */
+      //       console.log(result);
+      //       return result.data;
+      //     })
+      //     .catch((reason) => {
+      //       console.log(reason);
+      //       throw new Error(reason);
+      //     })
+      //     .then((data) => {
+      //       //=>data：从服务器获取的响应主体内容
+      //     });
+    </script>
+    <script>
+      //1.基础url
+      axios.default.baseURL = 'http://127.0.0.1:5500';
+      //2.跨域请求中允许携带资源凭证(例如cookie信息)
+      axios.default.withCredentials = true;
+      //3. 设置请求头：post系列中，我们传递给服务器数据的格式一般以x-www-form-urlencoded格式为主
+      axios.defaults.headers.post['Content-Type'] =
+        'application/x-www-form-urlencoded';
+      //4.设置请求拦截器(只对post系列有用)把基于请求主体传递给服务器的内容进行拦截，把内容格式变为x-WWW-form-urlencoded这种格式，再传递给服务器
+      axios.default.transformRequeset = function (data) {
+        if (!data) return data;
+        let str = ``;
+        for (let key in data) {
+          if (!data.hasOwnProperty(key)) break;
+          str += `&${key}=${data[key]}`;
+        }
+        return str.substring(1);
+      };
+      //   axios.interceptors.request.use(function (data) {
+      // );
+      //5.设置响应拦截器:[成功状态]把从服务器获取的结果中的响应主体信息获取到即可，【失败状态】手动把错误信息抛出异常
+      axios.interceptors.response.use(
+        function (response) {
+          return response.data;
+        },
+        function (error) {
+          throw new Error(error);
+        }
+      );
+      // 6.配置说明才算成功(把promise状态改为fulfilled)
+      axios.default.validateStatus = function (status) {
+        return /^(2|3)\d{2}$/.test(status);
+      };
+      // promise.all
+
+      let promise1 = Promise.resolve(100);
+      let promise2 = Promise.resolve(200);
+      axios.all([promise1, promise2]).then((data) => {}); //data=> [100,200]
+      axios.all([promise1, promise2]).then(
+        axios.spread(function (acct, perms) {
+          console.log(acct, perms);
+        })
+      ); //data=> 100,200
+      axios
+        .post('.../json/data.json', {
+          lx: 1,
+          from: 'wx',
+        })
+        .catch((reason) => {
+          console.log(reason);
+        });
+    </script>
+  </body>
+</html>

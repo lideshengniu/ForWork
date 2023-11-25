@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* 
+         定时器的返回值是一个数字，代表当前是第几个定时器
+             后期基于clearTimeout/clearInterval清楚定时器
+             手动把timer赋值为null，后期基于它的值验证是否存在定时器
+         定时器是异步编程的
+        */
+      //   let timer = null;
+      //   timer = setTimout(() => {
+      //     clearTimeout(timer);
+      //     timer = null;
+      //   }, 1000);
+      //=>定时器设置一个等待时间，到达时间后不一定执行(如果当前主线程被占用着，所有任务都要等主线程空闲下来，才能被安排执行=》"因为js是单线程的")
+      let n = 0;
+      setTimeout(() => {
+        n++;
+        console.log(n); //3
+      }, 0);
+      console.time('AA');
+      for (let i = 0; i < 90000000; i++) {}
+      console.timeEnd('aa');
+      n += 2;
+      console.log(n); //2
+
+      //==================
+
+      let n = 0;
+      setTimeout(() => {
+        n++;
+        console.log(n); //10
+      }, 500);
+      setTimeout(() => {
+        n += 2;
+        console.log(n); //2
+      }, 50);
+      for (let i = 0; i < 9000000; i++) {}
+      setTimeout(() => {
+        n += 3;
+        console.log(n); //5
+      }, 20);
+      console.log(n); //0
+    </script>
+  </body>
+</html>

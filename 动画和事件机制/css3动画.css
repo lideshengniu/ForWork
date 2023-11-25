@@ -1,0 +1,10 @@
+/* 
+css3中的变形属性：transform，改变元素的样式
+优势：开启了硬件加速，比传统的样式改变性能流畅一些
+   scale(N) 缩放
+   translate(x,y) 位移
+   rotate(Ndeg) 旋转N读
+   skew(Ndeg)倾斜N度
+   matrix 矩阵变形
+
+*/

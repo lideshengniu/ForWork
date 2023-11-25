@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./reset.css" />
+    <style>
+      .container {
+        margin: 20px auto;
+        width: 200px;
+      }
+
+      .box {
+        box-sizing: border-box;
+        width: 100px;
+        height: 35px;
+        line-height: 35px;
+        float: right;
+        text-align: center;
+        font-size: 16px;
+        border: 1px solid #ddd;
+      }
+      .container .detail {
+        float: right;
+
+        top: 33px;
+        right: -1px;
+        width: 200px;
+        box-sizing: border-box;
+        border: 1px solid orange;
+        height: 70px;
+        line-height: 70px;
+        text-align: center;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="box">
+        <span>购物车</span>
+      </div>
+      <div class="detail">暂无购物车内容</div>
+    </div>
+    <!-- 
+        事件委托：
+         1.基于事件的冒泡传播机制完成
+         2.如果一个容器中很多元素都要在触发某一事件的时候做一些事情(原始方案:给元素每一个都单独进行事件绑定)，我们只需要给当前容器的这个事件行为绑定方法，这样不论是触发后代哪一个元素的相关事件行为，由于冒泡传播机制，当前容器绑定的方法也都要被触发执行
+         3.想知道点击的是谁(根据是谁做不同的事情)，只需要基于事件对象中的ev.target事件源获取即可
+        =》基于事件委托实现，整体性能要比一个一个的绑定方法高出50%左右
+        =》如果多元素触发，业务逻辑属于一体的，基于事件委托来处理，更加好
+        =》某些业务场景只能基于事件委托处理 
+     -->
+    <script>
+      let box = document.querySelector('.box'),
+        detail = document.querySelector('.detail');
+      document.onmouseover = function (ev) {
+        let target = ev.target;
+        if (target.tagName === 'SPAN') {
+          //=>如果事件源是span，我们让其变为其父元素
+          target = target.parentNode;
+        }
+        if (/^(box|detail)$/.test(target.className)) {
+          //=>如果事件源的class是box/detail
+          detail.style.display = 'block';
+          return;
+        }
+        detail.style.display = 'none';
+      };
+      // 一种方法 这种如果box 和 detail 间隙较大就不好处理
+      //   box.onmouseover = function (ev) {
+      //     detail.style.display = 'block';
+      //   };
+      //   box.onmouseout = function (ev) {
+      //     detail.style.display = 'none';
+      //   };
+      //   detail.onmouseover = function (ev) {
+      //     detail.style.display = 'block';
+      //   };
+      //   detail.onmouseover = function (ev) {
+      //     detail.style.display = 'none';
+      //   };
+      document.onclick = function (ev) {
+        let target = ev.target;
+        target.tagName === 'SPAN' ? (target = target.parentNode) : null;
+        if (/^box$/.test(target.className)) {
+          //如果是box让其显示
+          detail.style.display = 'block';
+          return;
+        }
+        // if (/^detail$/.test(target.className)) {
+        //   //Reuters是detail啥也不干
+        //   return;
+        // }
+        //剩下的都是隐藏
+        detail.style.display = 'none';
+      };
+      detail.onclick = function (ev) {
+        //如果是detail啥也不干
+        ev.stopPropagation();
+      };
+    </script>
+  </body>
+</html>

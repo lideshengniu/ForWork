@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./reset.css" />
+    <style>
+      /* * {
+        padding: 0;
+        margin: 0;
+      } */
+      .magnifier {
+        box-sizing: border-box;
+        width: 650px;
+        /* height: 150px; */
+        margin: 20px auto;
+        /* background-color: rgb(221, 16, 16); */
+      }
+      .magnifier .abbre,
+      .magnifier .origin {
+        float: left;
+      }
+      .magnifier .abbre {
+        position: relative;
+        box-sizing: border-box;
+        height: 300px;
+        width: 300px;
+      }
+      .magnifier .abbre img {
+        width: 100%;
+        height: 100%;
+      }
+      .magnifier .origin img {
+        width: 100%;
+        height: 100%;
+      }
+      .magnifier .abbre .mark {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100px;
+        height: 100px;
+        background: rgba(255, 0, 0, 0.3);
+        cursor: move;
+      }
+      .clearfix::after {
+        display: block;
+        clear: both;
+        content: '';
+      }
+      .magnifier .origin {
+        display: none;
+        position: relative;
+        box-sizing: border-box;
+        width: 350px;
+        height: 350px;
+        overflow: hidden;
+      }
+      .magnifier .origin img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1050px;
+        height: 1050px;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="magnifier clearfix">
+      <!-- 左侧缩略图 -->
+      <div class="abbre">
+        <img src="./clientX和pageX.png" alt="" />
+        <div class="mark"></div>
+      </div>
+      <!-- 右侧原图（大图） -->
+      <div class="origin">
+        <img src="./clientX和pageX.png" alt="" />
+      </div>
+    </section>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+      let $abbre = document.getElementsByClassName('abbre')[0],
+        $mark = $abbre.querySelector('.mark'),
+        $origin = document.getElementsByClassName('origin')[0],
+        $originImg = $origin.querySelector('img');
+      //=>computedMark：计算mark盒子的位置
+      let abbreW = $abbre.clientWidth,
+        abbreH = $abbre.clientHeight;
+      let abbreOffsetLeft = $abbre.offsetLeft,
+        abbreOffsetTop = $abbre.offsetTop,
+        markW = $mark.clientWidth,
+        markH = $mark.clientHeight,
+        originW = $origin.clientWidth,
+        originH = $origin.clientHeight;
+      console.dir($mark);
+      //1.计算出大图的大小
+      //   $originImg.style.width = (abbreW / markW) * originW;
+      //   $originImg.style.height = (abbreH / markH) * originH;
+      function computedMark(ev) {
+        markW = $mark.clientWidth;
+        markH = $mark.clientHeight;
+        // $originImg.style.width = (abbreW / markW) * originW;
+        // $originImg.style.height = (abbreH / markH) * originH;
+
+        let markL = ev.pageX - abbreOffsetLeft - markW / 2,
+          markT = ev.pageY - abbreOffsetTop - markH / 2;
+        let minL = 0,
+          minT = 0,
+          maxL = abbreW - markW,
+          maxT = abbreH - markH;
+        markL = markL < minL ? minL : markL > maxL ? maxL : markL;
+        markT = markT < minT ? minT : markT > maxT ? maxT : markT;
+        $mark.style.left = markL + 'px';
+        $mark.style.top = markT + 'px';
+        console.log(markW);
+        console.log($originImg.style.width);
+        //=>控制大图移动
+        $originImg.style.left =
+          -(markL / abbreW) * $originImg.clientWidth + 'px';
+        $originImg.style.top =
+          -(markT / abbreH) * $originImg.clientWidth + 'px';
+      }
+      $abbre.onmouseenter = function (ev) {
+        $mark.style.display = 'block';
+        $origin.style.display = 'block';
+        computedMark(ev);
+      };
+      $abbre.onmouseleave = function (ev) {
+        $mark.style.display = 'none';
+        $origin.style.display = 'none';
+      };
+      $abbre.onmousemove = function (ev) {
+        computedMark(ev);
+      };
+    </script>
+  </body>
+</html>

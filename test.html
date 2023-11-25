@@ -11,6 +11,7 @@
       }
       ul {
         list-style: none;
+        position: relative;
       }
       #box {
         margin: 10px auto;
@@ -19,6 +20,13 @@
       #box li {
         line-height: 35px;
         border-bottom: 1px dashed #999;
+      }
+      #box li:nth-of-type(1) {
+        position: relative;
+        left: 10px;
+        top: 25px;
+        background-color: red;
+        z-index: -1;
       }
     </style>
   </head>
@@ -65,13 +73,204 @@
       //   c.fun(2); //1
       //   c.fun(3); //1
       //   console.log(c);
-      //   for (var i = 0; i < 10; i++) {
+      //   for (var i = 0; i <script 10; i++) {
       //     function c(i) {
       //       console.log(i);
       //     }
       //   }
-      let a = {};
-      console.log(a.__proto__.toString());
+      //   let a = {};
+      //   console.log(a.__proto__.toString());
+      //   ~(function () {
+      //     function create(proto) {
+      //       function fn() {}
+      //       fn.prototype = proto;
+      //       let obj = new fn();
+      //       return obj;
+      //       //   let obj = {};
+      //       //   obj.__proto__ = proto;
+      //       //   return obj;
+      //     }
+      // Object.prototype.create = create;
+      // })();
+      //   let c = Object.create();
+      //   console.dir(c);
+      //   ~(function () {
+      //     function instanceofs(left, right) {
+      //       let leftprototype = Object.getPrototypeOf(left),
+      //         rightprototype = right.prototype;
+      //       while (leftprototype) {
+      //         if (rightprototype === leftprototype) {
+      //           return true;
+      //         }
+      //         leftprototype = Object.getPrototypeOf(leftprototype);
+      //       }
+      //       return false;
+      //     }
+      //     window.instanceofs = instanceofs;
+      //   })();
+      //   ~(function () {
+      //     function newss(fun, ...args) {
+      //       let Obj = Object.create(fn.prototype);
+      //       fn.apply(obj, args);
+      //     }
+      //     window.newss = newss;
+      //   })();
+      //   function(obj){
+      //     function Fn(){}
+      //      Fn.prototype = obj
+      //      return new Fn()
+      //   }
+      //   function debounce(fn, wait) {
+      //     let timer = null;
+      //     return function () {
+      //       let content = this;
+      //       let args = arguments;
+      //       if (timer) {
+      //         clearTimeout(timer);
+      //         timer = null;
+      //         return;
+      //       }
+      //       timer = setTimeout(() => {
+      //         fn.call(content, ...args);
+      //       }, wait);
+      //     };
+      //   }
+      //   function debounce(fn, wait) {
+      //     let timer = null;
+      //     return function () {
+      //       let content = this,
+      //         args = arguments;
+      //       if (timer) {
+      //         return;
+      //       }
+      //       timer = setTimeout(() => {
+      //         fn.apply(content, args);
+      //         clearTimeout(timer);
+      //         timer = null;
+      //       }, timeout);
+      //     };
+      //   }
+      //   console.log({}.toString());
+      //   ~(function () {
+      //     function mycall(obj = window, ...args) {
+      //       obj._fn = this;
+      //       let result = obj._fn(...args);
+      //       delete obj._fn;
+      //       return result;
+      //     }
+      //     Function.prototype.mycall = mycall;
+      //   })();
+      //   ~(function () {
+      //     function myBind(content = null, ...outerArgs) {
+      //       let this_ = this;
+      //       return function (...innerArgs) {
+      //         return this_.apply(content, outerArgs.concat(...innerArgs));
+      //       };
+      //     }
+      //     f;
+      //   })();
+      //   function add(a, b, c, d) {
+      //     return a + b + c + d;
+      //   }
+      //   function curry(fn, length) {
+      //     length = length || fn.length;
+      //     return function () {
+      //       let args = arguments;
+      //       if (args.length >= length) {
+      //         return fn(...args);
+      //       } else {
+      //         curry(fn.bind(null, ...args), length - args.length);
+      //       }
+      //     };
+      //   }
+      //   let v = function () {};
+      //   let b = Symbol(1);
+      //   let a = { c: 2 };
+      //   a[b] = 3;
+      //   a[v] = 4;
+      //   console.log(a);
+      //   let c = JSON.parse(JSON.stringify(a));
+      //   console.log(c);
+      //   let c = { a: 1, b: 1, c: 2 };
+      //   console.log(...c);
+      //   var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+      //   let arrs = arr.reduce((last, now) => {
+      //     // console.log(last, now);
+      //     console.log(last, now);
+      //     return last + now;
+      //   }, 0);
+      //   console.log(arrs);
+      //   for (let i = 0; i < arr.length - 1; i++) {
+      //     let randomIndex = Math.floor(Math.random() * (arr.length - i) + i);
+      //     [arr[i], arr[randomIndex]] = [arr[randomIndex], arr[i]];
+      //   }
+      //   console.log(arr);
+      //   let arr = [1, [2, [3, 4, [5]]]];
+      //   //   console.log(arr.flat('Infinity'));
+      //   //   let ar1 = '12312414';
+      //   function flat(arr) {
+      //     let c = arr.length;
+      //     for (let i = 0; i < arr.length; i++) {
+      //       while (Array.isArray(arr[i])) {
+      //         arr = [].concat(...arr);
+      //         c = arr.length;
+      //       }
+      //     }
+      //     console.log(arr);
+      //   }
+      //   flat(arr);
+      //   console.log(ar1.split(''));
+      //   function add() {
+      //     return eval(Array.from(arguments).join('+'));
+      //   }
+      //   function sum(fn, length) {
+      //     return function () {
+      //       let args = arguments;
+      //       if (args.length >= length) {
+      //         return fn.apply(null, args);
+      //       } else {
+      //         return sum(fn.bind(this, ...args), length - args.length);
+      //       }
+      //     };
+      //   }
+      //   let a = sum(add, 3);
+      //   let c = a(2)(2)(3);
+      //   console.log(c);
+      //   class test {
+      //     // 事件合集
+      //     static map = new Map();
+      //     //2添加事件
+      //     addEventLister(type, handler) {
+      //       if (!test.map.has(type)) {
+      //         test.map.set(type, []);
+      //       }
+      //       map.get(type).push(handler);
+      //     }
+      //     //3触发事件
+      //     dispatchEvent(type, ...params) {
+      //       if (!test.map.has(type)) {
+      //         return new Error('wushijian');
+      //       }
+      //       test.map.get(type).forEach((item) => item(...params));
+      //     }
+      //     //4.事件移除
+      //     removeEventListener(type, handler) {
+      //       if (!test.map.get(type)) {
+      //         return new Error('无效');
+      //       }
+      //       if (!handler) {
+      //         test.map.delete(type);
+      //       } else {
+      //         let index = test.map
+      //           .get(type)
+      //           .findIndex((item) => item === handler);
+      //         if (index === -1) {
+      //           return new Error('wubangding');
+      //         }
+      //         test.map.get[type].splice(index, 1);
+      //       }
+      //     }
+      //   }
     </script>
   </body>
 </html>

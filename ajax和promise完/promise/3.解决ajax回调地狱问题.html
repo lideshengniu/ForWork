@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 解决回调地狱 -->
+    <script>
+      function queryBase() {
+        return new Promise((resolve) => {
+          $.ajax({
+            url: '/baseInfo?name=zhanglu',
+            success: (result) => {
+              resolve(result);
+              //没有处理失败的时候 如果报错 状态就出去pedding状态 不会管
+            },
+          });
+        });
+      }
+      function queryScore(scoreId) {
+        return new Promise((resolve) => {
+          $.ajax({
+            url: '/score?id=' + scoreId,
+            success: (result) => {
+              resolve(result);
+              //没有处理失败的时候 如果报错 状态就出去pedding状态 不会管
+            },
+          });
+        });
+      }
+      function queryChinese(chinese) {
+        return new Promise((resolve) => {
+          $.ajax({
+            url: '/paiming?chin=' + chinese,
+            success: (result) => {
+              resolve(result);
+              //没有处理失败的时候 如果报错 状态就出去pedding状态 不会管
+            },
+          });
+        });
+      }
+      queryBase()
+        .then((baseInfo) => {
+          let scoreId = baseInfo.scoreId;
+          return queryScore(scoreId); //=>THEN方法中如果返回的是一个promise实例，则当前返回实例的成功或者失败状态，影响着下一个then中哪个方法会被触发执行；如果返回的是非promise实例，则看当前方法执行是否报错来决定
+        })
+        .then((scoreInfo) => {
+          let chinese = scoreInfo.chinese;
+          return queryChinese(chinese);
+        })
+        .then((pai) => {
+          console.log('排名是：' + pai);
+        });
+    </script>
+    <!-- 解决ajax并行 -->
+    <script>
+      function ajax1() {
+        return new Promise((resolve) => {
+          $.ajax({
+            url: '/api1',
+            success: resolve,
+            //没有处理失败的时候 如果报错 状态就出去pedding状态 不会管
+          });
+        });
+      }
+      function ajax2() {
+        return new Promise((resolve) => {
+          $.ajax({
+            url: '/api2',
+            success: resolve,
+            //没有处理失败的时候 如果报错 状态就出去pedding状态 不会管
+          });
+        });
+      }
+      function ajax3() {
+        return new Promise((resolve) => {
+          $.ajax({
+            url: '/api3',
+            success: resolve,
+            //没有处理失败的时候 如果报错 状态就出去pedding状态 不会管
+          });
+        });
+      }
+      //promise.all ALL中存放的是多个promise实例(每一个实例管理着一个异步操作)，执行all方法返回的结果是一个新的promise实例"PROA"
+      //=>当所有promise实例的状态都为fulfilled的时候(成功)，让PROA的状态也变为fulfilled,并且把所有promise成功获取的结果，存储为一个数组(顺序和最开始编写的顺序一致) result=[result1,result2,result3,...]  让PROA这个数组的value值等于这个数组
+      //=>都成功(PROA状态是fulfilled)才会通知then中第一个方法执行，只要有一个失败（PROA状态是rejected），就会通知then中第二个方法或者catch中的方法执行
+      Promise.all([ajax1(), ajax3(), ajax2()]).then((result) => {
+        //=>result:[result1,result3,result2]
+      });
+      Promise.race([ajax1(), ajax3(), ajax2()]).then((result) => {
+        //=>看哪一个promise状态最先处理完(成功或者失败) 以最先处理完的为主
+      });
+    </script>
+  </body>
+</html>

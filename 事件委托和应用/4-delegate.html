@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./reset.css" />
+    <style>
+      .box {
+        margin: 20px auto;
+        width: 200px;
+      }
+      .newsList {
+        box-sizing: border-box;
+        border: 2px solid lightpink;
+        padding: 5px;
+      }
+      .newsList li {
+        line-height: 35px;
+        /* height: 35px; */
+        border-bottom: 1px dashed #bbb;
+      }
+      .createBtn {
+        margin-top: 10px;
+        box-sizing: border-box;
+        width: 100px;
+        height: 40px;
+        border: 1px solid #aaa;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <ul class="newsList">
+        <li>我是第1个LI</li>
+        <li>我是第2个LI</li>
+        <li>我是第3个LI</li>
+        <li>我是第4个LI</li>
+        <li>我是第5个LI</li>
+      </ul>
+      <button class="createBtn">新增</button>
+    </div>
+    <script>
+      let $newsList = document.querySelector('.newsList'),
+        $createBtn = document.querySelector('.createBtn'),
+        $lis = $newsList.querySelectorAll('li');
+      //   for (let i = 0; i < $lis.length; i++) {
+      //     $lis[i].onclick = function () {
+      //       alert(`我是第${i + 1}个`);
+      //     };
+      //   }
+      //   let count = 5;
+      //   $createBtn.onclick = function () {
+      //     for (let i = 0; i < 5; i++) {
+      //       count++;
+      //       let div = document.createElement('li');
+      //       div.innerText = `我是第${count}`;
+      //       $newsList.appendChild(div);
+      //     }
+      // }; //这样添加没有点击事件
+      //传统方法
+      /*
+        function handle(){
+          $lis =   $newsList.querySelectorAll('li');
+          $lis.forEach((item,index)=>{item.onclick=funciton(){
+              alert(`我是第${index+1}个LI`)
+          }})
+        }
+       再每button click 添加的时候执行一次handle()
+        */
+      //用事件委派
+      let count = 5;
+      $newsList.onclick = function (ev) {
+        let target = ev.target;
+        if (target.tagName === 'LI') {
+          //   console.dir(target);
+          let num = target.innerText.match(/\d+/);
+          //   console.log(num[0]);
+          alert(`我是第${target.innerText.match(/\d+/)[0]}`);
+        }
+      };
+      $createBtn.onclick = function () {
+        for (let i = 0; i < 5; i++) {
+          count++;
+          let div = document.createElement('li');
+          div.innerText = `我是第${count}`;
+          $newsList.appendChild(div);
+        }
+      };
+    </script>
+  </body>
+</html>

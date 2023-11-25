@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+      #outer {
+        margin: 20px auto;
+        width: 300px;
+        height: 300px;
+        background: lightblue;
+      }
+      #inner {
+        margin: 20px auto;
+        width: 200px;
+        height: 200px;
+        background: rgb(183, 111, 78);
+      }
+      #center {
+        margin: 20px auto;
+        width: 100px;
+        height: 100px;
+        background: rgb(167, 189, 167);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="outer">
+      <div id="inner">
+        <div id="center"></div>
+      </div>
+    </div>
+    <!-- 
+        事件的传播机制
+             捕获阶段:从最外层向最里层事件源依次进行查找(目的：是为冒泡阶段事先计算好传播的层级路径)=>CAPTURING_PHASE:1
+             目标阶段:当前元素的相关事件行为触发AT_TARGET:2
+             冒泡传播:触发当前元素的某一个事件行为，不仅它的这个行为触发了，而且它所有的祖先元素(一直到window)相关的事件行为都会被依次触发(从内到外的顺序)=>BUBBLING_PHASE:3  （Event.prototype)
+     -->
+    <script>
+      document.body.onclick = function () {
+        console.log('body');
+      };
+      outer.onclick = function () {
+        console.log('outer');
+      };
+      inner.onclick = function () {
+        console.log('inner');
+      };
+      center.onclick = function () {
+        console.log('center');
+        //=>阻止冒泡传播
+        ev.stopPropagation();
+      };
+      //=======================
+      //下面的执行顺序outer center inner body  因为outer开启了 捕获阶段触发 而inner又选择冒泡阶段 触发   默认是false
+      outer.addEventListener(
+        'click',
+        function () {
+          console.log('outer', ev);
+        },
+        true
+      );
+      inner.addEventListener(
+        'click',
+        function () {
+          console.log('inner', ev);
+        },
+        false
+      );
+      center.addEventListener('click', function () {
+        console.log('center', ev);
+      });
+      // ============
+      outer.addEventListener(
+        'click',
+        function () {
+          console.log('outer', ev);
+        },
+        true
+      );
+      inner.addEventListener(
+        'click',
+        function () {
+          console.log('inner', ev);
+        },
+        false
+      );
+      center.addEventListener(
+        'click',
+        function () {
+          console.log('center', ev);
+        },
+        false
+      );
+      // outer center inner
+    </script>
+  </body>
+</html>

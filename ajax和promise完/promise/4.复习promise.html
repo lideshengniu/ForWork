@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../axios/node_modules/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <script>
+      /* promise */
+      new Promise(function executor(resolve, reject) {
+        //...执行异步操作代码
+        resolve(x); //=>把promise实例的状态改为fulfilled
+        reject(y); // 把promise实例的状态更改为rejected 把xy赋值给promise的value
+      })
+        .then(
+          function onFulfilled(x) {
+            //代码执行不报错会把.then形成的这个promise实例的状态改为fulfilled，反之报错改为rejected，return的值是value的值
+            return 100;
+          },
+          function onRejected(y) {
+            //如果方法中返回的是一个新的promise实例，它会按照这个实例最终的状态和结果，决定下一个then中执行谁(它的状态影响)
+            //return new Promise() 如果没有确定状态返回 就不执行后面的then
+          }
+        )
+        .then(null, function onRejected(y) {})
+        .then(
+          function onFulfilled(x) {
+            // 因为上一个then中没有onFulfilled，promise内部会帮我们自动创建一个onFulfilled函数，让其执行后的状态还是fulfilled
+          },
+          function onRejected() {}
+        );
+      //创建一个状态为fulfilled/rejected value为aa的promise实例
+      new Promise((resolve, reject) => {
+        resolve('AA');
+      });
+      Promise.resolve('AAA'); //和上面一样的 只是上面还要套一层走过程
+      Promise.reject('AAA');
+
+      Promise.reject('AA').catch(function onRejected() {});
+
+      //=> 所有promise的状态都为fulfilled 整体才是fulfilled
+      Promise.all([promise1,promise2,...]).then(function(result){
+        //=>按照顺序存储每一个promise的value值
+        //[value1,value2,...]
+
+      })
+      //RACE:看promise实例中谁先得到最后的状态，最后的结果就以谁为主
+
+
+
+
+           // =============
+    </script>
+    <script>
+      //AXIOS 基于promise封装的ajax库
+      //=>1.配置默认项 axios.defaults.xxx = xxx
+      axios.defaults.baseURL = 'http://127.0.0.1:5000';
+      axios.defaults.withCreadentials = true;
+      axios.defaults.timeout = 5000;
+      axios.defaults.headers['Content-Type'] =
+        'application/x-www-form-urlencoded';
+      axios.defaults.transformRequest = function (data) {
+        //DATA:用户需要传递给服务器的json对象
+        if (!data) return data;
+        let result = ``;
+        for (let attr in data) {
+          if (!data.hasOwnProperty(attr)) break;
+          result += `&${attr}=${data[attr]}`;
+        }
+        return result.substring(1);
+      };
+      axios.defaults.transformResponse = [
+        function onFulfilled(response) {
+          return response.data;
+        },
+        function onRejected(reason) {
+          return Promise.reject(reason);
+        },
+      ];
+      axios.interceptors.response.use(
+        function onFulfilled(response) {
+          return response.data;
+        },
+        function onRejected(reason) {
+          return Promise.reject(reason);
+        }
+      );
+      axios.defaults.validateStatus = function (status) {
+        return /^(2|3)\d{2}$/.test(status);
+      };
+      //2.发送各种请求以及使用axios.all处理并行
+      axios
+        .get(URL, {
+          params: {},
+        })
+        .then((data) => {})
+        .catch((reason) => {});
+      axios
+        .post(URL, DATA, {})
+        .then((data) => {})
+        .catch((reason) => {});
+
+        axios.all([promise1,promise2,...]).then(results=>{})
+
+        let spread = axios.spread(function(value1,value2,....){
+
+        })
+        axios.all([promise1,promise2,...]).then(spread)
+    </script>
+  </body>
+</html>

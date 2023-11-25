@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+      #outer {
+        margin: 20px auto;
+        width: 300px;
+        height: 300px;
+        background: lightblue;
+      }
+      #inner {
+        margin: 20px auto;
+        width: 200px;
+        height: 200px;
+        background: rgb(183, 111, 78);
+      }
+      #center {
+        margin: 20px auto;
+        width: 100px;
+        height: 100px;
+        background: rgb(167, 189, 167);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="outer">
+      <div id="inner">
+        <div id="center"></div>
+      </div>
+    </div>
+    <!-- <script>
+      let center = document.getElementById('center');
+      let outer = document.getElementById('outer');
+      let inner = document.getElementById('inner');
+      center.onmouseover = function () {
+        console.log('center over');
+      };
+      center.onmouseout = function () {
+        console.log('center over');
+      };
+      inner.onmouseover = function () {
+        console.log('inner over');
+      };
+      inner.onmouseout = function () {
+        console.log('inner over');
+      };
+    </script> -->
+    <script>
+      let center = document.getElementById('center');
+      let outer = document.getElementById('outer');
+      let inner = document.getElementById('inner');
+      center.onmouseenter = function () {
+        console.log('center enter');
+      };
+      center.onmouseleave = function () {
+        console.log('center leave');
+      };
+      inner.onmouseenter = function () {
+        console.log('inner enter');
+      };
+      inner.onmouseleave = function () {
+        console.log('inner leave');
+      };
+    </script>
+  </body>
+</html>
