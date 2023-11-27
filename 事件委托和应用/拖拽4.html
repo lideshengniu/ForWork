@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./reset.css" />
+    <style>
+      html,
+      body {
+        height: 100%;
+        overflow: hidden;
+      }
+      #box {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        cursor: move;
+      }
+      .container {
+        position: relative;
+        box-sizing: border-box;
+        width: 300px;
+        height: 200px;
+        margin: 0 auto;
+        border: 2px solid lightblue;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box" draggable="true"></div>
+    <!-- <div class="container"></div> -->
+    <script>
+      let css = function (curEle, attr) {
+        return parseFloat(window.getComputedStyle(curEle, null)[attr]);
+      };
+
+      let box = document.querySelector('box');
+      box.ondragestart = function (ev) {
+        this.startX = ev.pageX;
+        this.startY = ev.pageY;
+        this.startL = css(this, 'left');
+        this.startT = css(this, 'top');
+        this._MOVE = move.bind(this);
+        this._UP = up.bind(this);
+        document.addEventListener('mousemove', this._MOVE);
+        document.addEventListener('mouseup', this._UP);
+      };
+      box.ondrag = function (ev) {
+        let curL = ev.pageX - this.startX + this.startL,
+          curT = ev.pageY - this.startY + this.startT;
+        let minL = 0,
+          minT = 0,
+          maxL = document.documentElement.clientWidth - this.offsetWidth,
+          maxT = document.documentElement.clientHeight - this.offsetHeight;
+        curL = curL < minL ? minL : curL > maxL ? maxL : curL;
+        curT = curT < minT ? minT : curT > maxT ? maxT : curT;
+        this.style.left = curL + 'px';
+        this.style.top = curT + 'px';
+
+        this.curL = curL;
+        this.curT = curT;
+      };
+      box.ondragend = function (ev) {
+        this.style.left = this.curL + 'px';
+        this.style.top = this.curT + 'px';
+      };
+      document.body.ondragover = function (ev) {
+        ev.preventDefault();
+      };
+      let container = document.getElementsByClassName('container')[0];
+    </script>
+  </body>
+</html>

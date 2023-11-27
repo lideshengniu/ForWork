@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./reset.css" />
+    <style>
+      .container {
+        box-sizing: border-box;
+        margin: 20px auto;
+        border: 1px dashed #aaa;
+        padding: 10px;
+        width: 600px;
+        /* background-color: red; */
+      }
+      .level {
+        font-size: 14px;
+        display: none;
+        margin-left: 10px;
+      }
+      .level.level0 {
+        margin-left: 0;
+        display: block;
+      }
+
+      .level li {
+        padding-left: 15px;
+        position: relative;
+        line-height: 30px;
+      }
+      .level li .icon {
+        top: 9px;
+        left: 0;
+        position: absolute;
+        display: block;
+        box-sizing: border-box;
+        width: 12px;
+        height: 12px;
+        border: 1px solid #aaa;
+        background: #eee;
+        line-height: 8px;
+        cursor: pointer;
+        text-align: center;
+      }
+      .level li .icon::after {
+        content: '+';
+        display: block;
+        font-size: 12px;
+        font-style: normal;
+      }
+      .level li .icon.open::after {
+        content: '-';
+      }
+      .level li .title {
+        color: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <ul class="level level0">
+        <!-- <li>
+          <em class="icon open"></em>
+          <a href="" class="title">前端开发基础</a>
+          <ul class="level level1">
+            <li>
+              <em class="icon"></em>
+              <a href="" class="title">核心知识</a>
+              <ul class="level level2">
+                <li><a href="" class="title">新增语义化</a></li>
+                <li><a href="" class="title">新增特性</a></li>
+              </ul>
+            </li>
+            <li><a href="" class="titl">h5核心知识</a></li>
+          </ul>
+        </li> -->
+      </ul>
+    </div>
+    <script src="./js/ztree-plugin.js"></script>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+      //   let treeModule = (function () {
+      //     let $level0 = document.querySelector('.level0'),
+      //       count = 0;
+      //     // =>获取数据
+      //     let queryData = function (callBack) {
+      //       let xhr = new XMLHttpRequest();
+      //       xhr.open('get', './data.json');
+      //       xhr.onreadystatechange = function () {
+      //         if (xhr.readyState === 4) {
+      //           let treeDate = JSON.parse(xhr.response);
+      //           /*
+      //           success:result=>{callBack(result)}
+      //           success:callBack
+
+      //            */
+      //           //   $.fn.zTree.init($ztree1, options, treeDate);
+      //           callBack(treeDate);
+      //         }
+
+      //         // console.log(JSON.parse(treeDate));
+      //       };
+      //       xhr.send();
+      //     };
+      //     //=》数据绑定
+      //     let bindHTML = function (result) {
+      //       let str = ``;
+      //       result.forEach((item) => {
+      //         count++;
+      //         let { name, open, children } = item;
+      //         str += `<li>
+      //       <a href="" class="title">${name}</a>
+      //       ${
+      //         children
+      //           ? ` <em class="icon ${open ? 'open' : ''}}"></em>
+      //           <ul class="level level${count}}" style="display:${
+      //               open ? 'block' : 'none'
+      //             }}">
+      //             ${bindHTML(children)}
+      //         </ul>`
+      //           : ''
+      //       }
+      //       </li>`;
+      //         count--;
+      //       });
+      //       return str;
+      //     };
+      //     return {
+      //       init() {
+      //         //=>基于事件委托实现点击操作
+      //         $level0.onclick = function (ev) {
+      //           let target = ev.target;
+      //           if (target.tagName === 'EM') {
+      //             //=>加减号的切换
+
+      //             if (/open/.test(target.className)) {
+      //               target.className = target.className.replace('open', '');
+      //               target.nextElementSibling.style.display = 'none';
+      //               console.dir(target);
+      //             } else {
+      //               console.dir(target.className);
+      //               target.nextElementSibling.style.display = 'block';
+      //               target.className = target.className + ' open';
+      //             }
+      //           }
+      //         };
+      //         queryData(function anonymous(result) {
+      //           //=>获取数据后完成相关的事项
+      //           console.log(result);
+      //           let str = bindHTML(result);
+      //           $level0.innerHTML = str;
+      //         });
+      //       },
+      //     };
+      //   })();
+      //   treeModule.init();
+      let data;
+      let queryData = function (callBack) {
+        let xhr = new XMLHttpRequest();
+        xhr.open('get', './data.json', false);
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            data = JSON.parse(xhr.response);
+            console.log(data);
+            /*
+                  success:result=>{callBack(result)}
+                  success:callBack
+
+                   */
+            //   $.fn.zTree.init($ztree1, options, treeDate);
+            // callBack(treeDate);
+          }
+
+          // console.log(JSON.parse(treeDate));
+        };
+        xhr.send();
+      };
+      queryData();
+      console.log(data);
+      let level0 = document.querySelector('.level0');
+      window.extend(data, '.level0');
+
+      //   $.ztree(data, 'level0');
+    </script>
+  </body>
+</html>
