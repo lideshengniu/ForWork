@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="./reset.css" /> -->
+    <link rel="stylesheet" href="./bootstrap.min.css" />
+    <link rel="stylesheet" href="./reset.css" />
+    <style>
+      .modal-backdrop {
+        display: none;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+      .modal,
+      .modal-backdrop {
+        opacity: 0;
+        transition: opacity 2s linear !important;
+      }
+      .modal .modal-dialog {
+        margin: 0;
+      }
+      .modal .modal-content {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: block;
+      }
+    </style>
+    <!-- <link rel="stylesheet" href="."> -->
+  </head>
+  <body>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" id="loginBtn">
+      百度登录
+    </button>
+
+    <!-- Modal -->
+    <div class="modal" id="loginModal" style="opacity: 0">
+      <div class="modal-dialog">
+        <div class="modal-content" style="left: 0; top: 0">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">百度登录</h5>
+            <button type="button" class="close" id="loginCloseBtn">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            夫君子之行⑵，静以修身⑶，俭以养德⑷。非淡泊无以明志⑸，非宁静无以致远⑹。夫学须静也，才须学也，非学无以广才⑺，非志无以成学⑻。淫慢则不能励精⑼，险躁则不能治性⑽。年与时驰⑾，意与日去⑿，遂成枯落⒀，多不接世⒁，悲守穷庐⒂，将复何及⒃！
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">提交</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-backdrop" id="loginModalBack"></div>
+    <script src="./js/jquery.min.js"></script>
+    <!-- <script src="./js/bootstrap.min.js"></script> -->
+    <script src="js/dialog.js"></script>
+  </body>
+</html>
